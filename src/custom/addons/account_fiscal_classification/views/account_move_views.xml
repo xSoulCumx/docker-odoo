@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_move_form_inherit_fiscal_classification" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.fiscal.classification</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='delivery_date']" position="after">
+                <field name="fiscal_classification" readonly="state != 'draft'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_move_search_inherit_fiscal_classification" model="ir.ui.view">
+        <field name="name">account.move.search.inherit.fiscal.classification</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="fiscal_classification" string="Clasificacion Fiscal" filter_domain="[('fiscal_classification','like',self)]"/>
+           
+                <filter string="Clasificación A" name="classification_a" domain="[('fiscal_classification', '=', 'A')]"/>
+                <filter string="Clasificación B" name="classification_b" domain="[('fiscal_classification', '=', 'B')]"/>
+                <filter string="Clasificación C" name="classification_c" domain="[('fiscal_classification', '=', 'C')]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_move_tree_inherit_fiscal_classification" model="ir.ui.view">
+        <field name="name">account.move.tree.inherit.fiscal.classification</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="fiscal_classification" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
